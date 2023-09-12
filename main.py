@@ -1,3 +1,4 @@
+import os
 from PyPDF2 import PdfReader
 from fastapi import FastAPI
 from datastore import Datastore
@@ -10,7 +11,7 @@ app = FastAPI()
 
 @app.post("/load")
 async def load(file: File):
-    filename = file.path.split("/")[-1]
+    filename = os.path.basename(file.path)
     fulltext = ""
 
     with open(file.path, "rb") as f:
